@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster
+# Rentrol · Truck Roster · v1.4.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -63,6 +63,10 @@ El portal es responsivo: en celular el menú pasa arriba y el roster se muestra 
 ## Taller y seguimiento
 
 En Roster, la píldora **Flota activa / En taller** cambia de vista. Un truck sin driver queda en taller automáticamente: se marca cada día desde la fecha en que perdió driver (o desde W43 si nunca tuvo), con alerta. Desde ahí se agregan comentarios de seguimiento, se asigna driver o se registra truck down. Al pasar el cursor por un nombre o un número de truck se ven sus eventos activos, último evento y último comentario; en los perfiles aparece el mismo contexto con la caja de seguimiento.
+
+## Colores
+
+Verde activo · rojo truck down y day off no programado · azul day off programado · amarillo transfer · morado reporte · rojo intenso taller · verde esmeralda listo para asignar. En el calendario, truck downs y days off toman el color de su alerta tal como estaba ese día (verde en tiempo, ámbar al límite, rojo excedido).
 
 ## Alertas y tiempos
 

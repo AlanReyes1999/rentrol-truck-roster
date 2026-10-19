@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v1.4.0
+# Rentrol · Truck Roster · v1.5.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -58,7 +58,7 @@ Opcional: **Authentication → URL Configuration** en Supabase → *Site URL* = 
 
 ## Móvil y app
 
-El portal es responsivo: en celular el menú pasa arriba y el roster se muestra en tarjetas. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
+El portal es responsivo: en celular el menú pasa arriba (pestañas deslizables), Inicio muestra 4 indicadores en dos columnas, el roster se muestra en tarjetas, Drivers y Trucks se eligen con un selector y el generador de transfer abre a pantalla completa. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
 
 ## Taller y seguimiento
 

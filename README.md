@@ -9,15 +9,18 @@ Semanas **sábado → viernes**, numeradas por año (W43 · 2026 es la primera c
 - `index.html` — portal (un solo archivo, no necesita build)
 - `transfer.html` — generador de imagen y mensaje de transfer
 - `config.json` — URL y llave pública de Supabase + nombres por correo (vive solo en el repo; no se incluye en las entregas para no pisar tus llaves)
-- `supabase/schema.sql` — tablas, seguridad, tiempo real y roster inicial
+- `schema.sql` — tablas, seguridad, tiempo real y roster inicial
 - `netlify.toml` — configuración de publicación
+- `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `manifest.webmanifest` — icono del portal y app en celular
+
+Todos los archivos van sueltos en la raíz del repo (sin carpetas).
 
 Sin `config.json` lleno, el portal corre en **modo local** (datos solo en ese navegador) para pruebas.
 
 ## 1. Supabase (10 min, plan gratuito)
 
 1. Crea un proyecto en https://supabase.com (región US East).
-2. **SQL Editor → New query**: pega todo `supabase/schema.sql` y ejecuta. (Si ya lo habías corrido antes, ejecuta además `supabase/migration_2026-10-19.sql`.)
+2. **SQL Editor → New query**: pega todo `schema.sql` y ejecuta. (Si ya lo habías corrido antes, ejecuta además `migration_2026-10-19.sql`.)
 3. **Authentication → Providers → Email**: desactiva *Allow new users to sign up* (solo entran los usuarios que tú crees).
 4. **Authentication → Users → Add user → Create new user**: crea a Alan, JC y Clarissa con correo + contraseña y marca *Auto Confirm User*.
 5. **Project Settings → API**: copia *Project URL* y *anon public key* a `config.json`:

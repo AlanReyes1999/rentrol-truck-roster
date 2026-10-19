@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/config.json"
+  [headers.values]
+    Cache-Control = "no-cache"

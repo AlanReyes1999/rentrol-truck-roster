@@ -64,6 +64,13 @@ El portal es responsivo: en celular el menú pasa arriba y el roster se muestra 
 
 En Roster, la píldora **Flota activa / En taller** cambia de vista. Un truck sin driver queda en taller automáticamente: se marca cada día desde la fecha en que perdió driver (o desde W43 si nunca tuvo), con alerta. Desde ahí se agregan comentarios de seguimiento, se asigna driver o se registra truck down. Al pasar el cursor por un nombre o un número de truck se ven sus eventos activos, último evento y último comentario; en los perfiles aparece el mismo contexto con la caja de seguimiento.
 
+## Alertas y tiempos
+
+- **Truck down**: verde 0–12 h, ámbar 12–24 h, rojo más de 24 h (con horas usa la hora real; sin horas, desde que se registró).
+- **Day off**: al crearlo eliges *Reset day* (2 días) o *Week off* (7 días). En tiempo = verde, último día = ámbar, excedido = rojo con los días de más. Un day off abierto lleva *Regreso programado*, que aparece en el calendario y en la tarjeta *Salidas y regresos* (etiquetas Salida / Regreso / Regreso prog. / Fuera según la semana filtrada).
+- **Truck down programado**: estado *Programado* con fin programado opcional; se ve en el calendario y pasa a activo al llegar la fecha.
+- **Taller**: trucks sin driver; ámbar la primera semana, rojo después de 7 días. Desde la vista *En taller* (mismo diseño que la flota activa, con % de disponibilidad) se cambia a *Listo para asignar*, se asigna driver y se abre el **hilo de seguimiento** (comentarios y eventos en orden, con hora, autor y tiempo entre pasos). El hilo también está en los perfiles de driver y truck.
+
 ## Uso diario
 
 - **Inicio**: saludo, foto del día (actividad, activos, trucks en taller, alertas abiertas), módulos y alertas de hoy. El menú lateral se despliega al pasar el cursor por el borde izquierdo o con el botón de menú; el pin lo deja fijo. Abajo del menú: modo día / noche.

@@ -33,6 +33,9 @@ create table if not exists public.events (
   to_pad text,
   report_type text,
   severity text,
+  off_kind text,
+  planned_end date,
+  scheduled boolean,
   created_by text,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
@@ -42,6 +45,7 @@ create table if not exists public.trucks (
   id text primary key,
   active boolean default true,
   workshop_since date,
+  ready_since date,
   notes text,
   updated_at timestamptz default now()
 );

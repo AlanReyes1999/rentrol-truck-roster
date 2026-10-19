@@ -8,7 +8,7 @@ Semanas **sábado → viernes**, numeradas por año (W43 · 2026 es la primera c
 
 - `index.html` — portal (un solo archivo, no necesita build)
 - `transfer.html` — generador de imagen y mensaje de transfer
-- `config.json` — URL y llave pública de Supabase + nombres por correo
+- `config.json` — URL y llave pública de Supabase + nombres por correo (vive solo en el repo; no se incluye en las entregas para no pisar tus llaves)
 - `supabase/schema.sql` — tablas, seguridad, tiempo real y roster inicial
 - `netlify.toml` — configuración de publicación
 
@@ -17,7 +17,7 @@ Sin `config.json` lleno, el portal corre en **modo local** (datos solo en ese na
 ## 1. Supabase (10 min, plan gratuito)
 
 1. Crea un proyecto en https://supabase.com (región US East).
-2. **SQL Editor → New query**: pega todo `supabase/schema.sql` y ejecuta.
+2. **SQL Editor → New query**: pega todo `supabase/schema.sql` y ejecuta. (Si ya lo habías corrido antes, ejecuta además `supabase/migration_2026-10-19.sql`.)
 3. **Authentication → Providers → Email**: desactiva *Allow new users to sign up* (solo entran los usuarios que tú crees).
 4. **Authentication → Users → Add user → Create new user**: crea a Alan, JC y Clarissa con correo + contraseña y marca *Auto Confirm User*.
 5. **Project Settings → API**: copia *Project URL* y *anon public key* a `config.json`:
@@ -53,11 +53,19 @@ git push -u origin main
 
 Opcional: **Authentication → URL Configuration** en Supabase → *Site URL* = tu dominio de Netlify.
 
+## Móvil y app
+
+El portal es responsivo: en celular el menú pasa arriba y el roster se muestra en tarjetas. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
+
+## Taller y seguimiento
+
+En Roster, la píldora **Flota activa / En taller** cambia de vista. Un truck sin driver queda en taller automáticamente: se marca cada día desde la fecha en que perdió driver (o desde W43 si nunca tuvo), con alerta. Desde ahí se agregan comentarios de seguimiento, se asigna driver o se registra truck down. Al pasar el cursor por un nombre o un número de truck se ven sus eventos activos, último evento y último comentario; en los perfiles aparece el mismo contexto con la caja de seguimiento.
+
 ## Uso diario
 
 - **Inicio**: saludo, foto del día (actividad, activos, trucks en taller, alertas abiertas), módulos y alertas de hoy. El menú lateral se despliega al pasar el cursor por el borde izquierdo o con el botón de menú; el pin lo deja fijo. Abajo del menú: modo día / noche.
-- **Roster**: actividad de la flota = drivers con truck activos hoy entre drivers con truck (conteo individual, no por días) (semana actual, pasada, mes, todo o semana/rango a elegir), estado de hoy, franja de días por driver (verde activo, rojo truck down, ámbar days off, contorno = programado a futuro) y calendario con filtros por tipo. Clic en ↗ o en el nombre abre el perfil. Los selectores de truck, pad y estado se editan ahí mismo y generan el evento correspondiente (cambio de camión, transfer o truck down / day off / reporte) con la nota *Modificado desde Roster*. Trucks sin driver quedan **En taller (At workshop)** automáticamente.
+- **Roster**: actividad de la flota = promedio del rango de la actividad diaria (drivers con truck activos ÷ drivers con truck); cada día de la franja y del calendario muestra su propio %, con el día y la semana actuales resaltados en verde (semana actual, pasada, mes, todo o semana/rango a elegir), estado de hoy, franja de días por driver (verde activo, rojo truck down, ámbar days off, contorno = programado a futuro) y calendario con filtros por tipo. Clic en ↗ o en el nombre abre el perfil. Los selectores de truck, pad y estado se editan ahí mismo y generan el evento correspondiente (cambio de camión, transfer o truck down / day off / reporte) con la nota *Modificado desde Roster*. Trucks sin driver quedan **En taller (At workshop)** automáticamente.
 - **+ Nuevo evento**: driver → truck automático → tipo. Days off: programado sí/no, fechas, horas opcionales, a quién se notificó. Truck down: categoría y motivo, inicio, cerrado o abierto. Al cerrar un evento salen los días perdidos.
 - **Eventos**: lista filtrable y exportable a CSV; cada evento se edita, cierra o elimina.
-- **Transfers**: imagen para gerencia (EN) y mensaje de WhatsApp (ES). Desde un evento de tipo Transfer, *Imagen para gerencia* abre el generador ya prellenado.
+- **Transfers**: imagen para gerencia (EN) y mensaje de WhatsApp (ES); el botón *Registrar en Truck Roster* dentro del generador abre el evento ya prellenado, y abajo queda el historial de transfers (también aparecen en el calendario). Desde un evento de tipo Transfer, *Imagen para gerencia* abre el generador ya prellenado.
 - **Resumen WhatsApp** (en Roster): texto listo con actividad, abiertos y porcentaje por driver.

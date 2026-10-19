@@ -1,6 +1,6 @@
 {
-  "supabaseUrl": "",
-  "supabaseAnonKey": "",
+  "supabaseUrl": "https://uqxvlclmyaqrruccmylt.supabase.co",
+  "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxeHZsY2xteWFxcnJ1Y2NteWx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzNzM0NjIsImV4cCI6MjEwNzk0OTQ2Mn0.07CjN6IzoYA007LpztIzLc4pZcR_D1yC4j7s9HnWUfQ",
   "names": {
     "alan@ommatrucking.com": "Alan",
     "jc@ommatrucking.com": "JC",

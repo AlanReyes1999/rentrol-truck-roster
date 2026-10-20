@@ -36,6 +36,8 @@ create table if not exists public.events (
   severity text,
   off_kind text,
   planned_end date,
+  planned_time text,
+  no_eta boolean,
   scheduled boolean,
   created_by text,
   created_at timestamptz default now(),

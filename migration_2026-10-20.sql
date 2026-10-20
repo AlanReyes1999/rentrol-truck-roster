@@ -11,3 +11,5 @@ update public.drivers set name = 'Osvaldo Valdes', trailer = coalesce(trailer, '
 update public.drivers set trailer = coalesce(trailer, 'OMMA 864') where id = 'david-villereal';
 update public.drivers set name = 'Alain L Aragon Orellana', trailer = coalesce(trailer, 'BD 1020') where id = 'alain-aragon';
 update public.drivers set trailer = coalesce(trailer, 'OMMA 725'), pad = coalesce(pad, 'Sandcan BTA') where id = 'roman-trujillo';
+alter table public.events add column if not exists planned_time text;
+alter table public.events add column if not exists no_eta boolean;

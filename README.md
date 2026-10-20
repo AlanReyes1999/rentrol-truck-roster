@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v1.9.0
+# Rentrol · Truck Roster · v1.9.1
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -81,7 +81,7 @@ El calendario proyecta los eventos abiertos hacia adelante (un day off que ya pa
 ## Alertas y tiempos
 
 - **Truck down**: verde 0–12 h, ámbar 12–24 h, rojo más de 24 h (con horas usa la hora real; sin horas, desde que se registró).
-- **Day off**: al crearlo eliges *Reset day* (2 días) o *Week off* (7 días). En tiempo = verde, último día = ámbar, excedido = rojo con los días de más. Un day off abierto lleva *Regreso programado*, que aparece en el calendario y en la tarjeta *Salidas y regresos* (etiquetas Salida / Regreso / Regreso prog. / Fuera según la semana filtrada).
+- **Day off**: al crearlo eliges *Reset day* (2 días) o *Week off* (7 días). En tiempo = verde, último día = ámbar, excedido = rojo con los días de más. Un day off abierto lleva *Regreso programado* o **Sin ETA** (se marca inactivo día a día y en el calendario hasta fin de mes, hasta que haya fecha o regreso), y aparece en el calendario y en la tarjeta *Salidas y regresos* (etiquetas Salida / Regreso / Regreso prog. / Fuera según la semana filtrada).
 - **Truck down programado**: estado *Programado* con fin programado opcional; se ve en el calendario y pasa a activo al llegar la fecha.
 - **Taller**: trucks sin driver; ámbar la primera semana, rojo después de 7 días. Desde la vista *En taller* (mismo diseño que la flota activa, con % de disponibilidad) se cambia a *Listo para asignar*, se asigna driver y se abre el **hilo de seguimiento** (comentarios y eventos en orden, con hora, autor y tiempo entre pasos). El hilo también está en los perfiles de driver y truck.
 

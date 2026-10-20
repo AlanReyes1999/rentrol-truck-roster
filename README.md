@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v1.5.0
+# Rentrol · Truck Roster · v1.6.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -58,7 +58,7 @@ Opcional: **Authentication → URL Configuration** en Supabase → *Site URL* = 
 
 ## Móvil y app
 
-El portal es responsivo: en celular el menú pasa arriba (pestañas deslizables), Inicio muestra 4 indicadores en dos columnas, el roster se muestra en tarjetas, Drivers y Trucks se eligen con un selector y el generador de transfer abre a pantalla completa. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
+El portal es responsivo: en celular el menú pasa arriba (pestañas deslizables), Inicio muestra 4 indicadores en dos columnas, el roster se muestra en tarjetas, Drivers y Trucks se eligen con un selector, los formularios van a una columna y el generador de transfer abre a pantalla completa. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
 
 ## Taller y seguimiento
 
@@ -67,6 +67,12 @@ En Roster, la píldora **Flota activa / En taller** cambia de vista. Un truck si
 ## Colores
 
 Verde activo · rojo truck down y day off no programado · azul day off programado · amarillo transfer · morado reporte · rojo intenso taller · verde esmeralda listo para asignar. En el calendario, truck downs y days off toman el color de su alerta tal como estaba ese día (verde en tiempo, ámbar al límite, rojo excedido).
+
+## Days off (tarjeta del Roster)
+
+Muestra los drivers en day off **hoy** sobre los drivers con truck: verde por debajo del 15 %, ámbar entre 15 y 20 %, rojo por encima del 20 % (con pulso). Debajo: con cuántos cierra la semana y la tendencia (▲ más fuera, ▼ menos), y para el periodo elegido las salidas, los regresos (reales o programados) y el balance regresos/salidas: 100 % verde, 80–99 % ámbar, menos de 80 % rojo con la nota "Más salidas que regresos".
+
+El calendario proyecta los eventos abiertos hacia adelante (un day off que ya pasó su límite sigue en rojo con los días de más) y, con el filtro *En taller*, muestra por día los trucks en taller con sus días acumulados.
 
 ## Alertas y tiempos
 

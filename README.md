@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v1.6.0
+# Rentrol · Truck Roster · v1.8.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -58,7 +58,7 @@ Opcional: **Authentication → URL Configuration** en Supabase → *Site URL* = 
 
 ## Móvil y app
 
-El portal es responsivo: en celular el menú pasa arriba (pestañas deslizables), Inicio muestra 4 indicadores en dos columnas, el roster se muestra en tarjetas, Drivers y Trucks se eligen con un selector, los formularios van a una columna y el generador de transfer abre a pantalla completa. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
+El portal es responsivo: en celular la navegación es una barra inferior de 6 pestañas (como app nativa) y arriba quedan marca, idioma, tema y usuario; Inicio muestra 4 indicadores en dos columnas, el roster se muestra en tarjetas, Drivers y Trucks se eligen con un selector, los formularios van a una columna y el generador de transfer abre a pantalla completa. En el teléfono abre la URL y usa **Agregar a pantalla de inicio** (Safari: Compartir → Agregar a inicio; Chrome: menú ⋮ → Agregar a pantalla principal): queda con el icono del camión y abre a pantalla completa. En computadora puedes previsualizar la versión móvil agregando `?mobile=1` a la URL.
 
 ## Taller y seguimiento
 
@@ -67,6 +67,10 @@ En Roster, la píldora **Flota activa / En taller** cambia de vista. Un truck si
 ## Colores
 
 Verde activo · rojo truck down y day off no programado · azul day off programado · amarillo transfer · morado reporte · rojo intenso taller · verde esmeralda listo para asignar. En el calendario, truck downs y days off toman el color de su alerta tal como estaba ese día (verde en tiempo, ámbar al límite, rojo excedido).
+
+## v1.7.0
+
+Corre `migration_2026-10-20.sql` en Supabase: agrega a Ramon Viel (RTL812) y pone los nombres completos de la hoja fuente. Al cerrar un truck down o day off, el driver vuelve a *Activo* ese mismo día y la celda queda parcial (con horas, proporcional; sin horas, medio día).
 
 ## Days off (tarjeta del Roster)
 
@@ -80,6 +84,10 @@ El calendario proyecta los eventos abiertos hacia adelante (un day off que ya pa
 - **Day off**: al crearlo eliges *Reset day* (2 días) o *Week off* (7 días). En tiempo = verde, último día = ámbar, excedido = rojo con los días de más. Un day off abierto lleva *Regreso programado*, que aparece en el calendario y en la tarjeta *Salidas y regresos* (etiquetas Salida / Regreso / Regreso prog. / Fuera según la semana filtrada).
 - **Truck down programado**: estado *Programado* con fin programado opcional; se ve en el calendario y pasa a activo al llegar la fecha.
 - **Taller**: trucks sin driver; ámbar la primera semana, rojo después de 7 días. Desde la vista *En taller* (mismo diseño que la flota activa, con % de disponibilidad) se cambia a *Listo para asignar*, se asigna driver y se abre el **hilo de seguimiento** (comentarios y eventos en orden, con hora, autor y tiempo entre pasos). El hilo también está en los perfiles de driver y truck.
+
+## Sin conexión
+
+El portal funciona sin señal: la pantalla se guarda en el teléfono (`sw.js`), los datos quedan en caché y cada cambio que hagas offline se encola y se envía solo al volver la conexión (aviso arriba con los cambios pendientes y botón *Sincronizar ahora*). Tocar el avatar abre la cuenta: estado de conexión, última sincronización, idioma, tema y cerrar sesión.
 
 ## Uso diario
 

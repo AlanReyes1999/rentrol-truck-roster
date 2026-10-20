@@ -6,3 +6,9 @@
   for = "/config.json"
   [headers.values]
     Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/"

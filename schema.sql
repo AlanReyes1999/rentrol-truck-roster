@@ -16,7 +16,7 @@ create table if not exists public.drivers (
 
 create table if not exists public.events (
   id text primary key,
-  type text not null check (type in ('truck_down','day_off','truck_change','transfer','report','note')),
+  type text not null check (type in ('truck_down','day_off','truck_change','trailer_change','transfer','report','note')),
   driver_id text references public.drivers(id) on delete set null,
   truck text,
   start_date date not null,
@@ -30,6 +30,9 @@ create table if not exists public.events (
   notified text[] default '{}',
   from_truck text,
   to_truck text,
+  from_trailer text,
+  to_trailer text,
+  trailer_kind text,
   from_pad text,
   to_pad text,
   report_type text,

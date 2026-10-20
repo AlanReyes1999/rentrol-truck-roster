@@ -20,12 +20,12 @@ insert into public.locations (id, name, type, lat, lng, plus_code, address, colo
   ('gardendale-yard', 'Gardendale Yard', 'yard', 32.049562, -102.302562, '854V2MXW+RX', '2MXW+RXW Gardendale, Texas, EE. UU.', '#A398E6', array['Trucks']::text[])
 on conflict (id) do nothing;
 insert into public.trucks (id) values ('804'), ('805'), ('806') on conflict (id) do nothing;
-update public.trucks set inactive_reasons = array['bad_engine'], location_id = 'omma-yard-2-midland', location_note = 'Chino' where id = '801' and inactive_reasons is null;
-update public.trucks set inactive_reasons = array['bad_engine'], location_id = 'omma-yard-midland', location_note = null where id = '802' and inactive_reasons is null;
-update public.trucks set inactive_reasons = array['total_loss'], location_id = 'omma-yard-midland', location_note = null where id = '804' and inactive_reasons is null;
-update public.trucks set inactive_reasons = array['total_loss','safety_hold'], location_id = null, location_note = 'Safety la recogió' where id = '805' and inactive_reasons is null;
-update public.trucks set inactive_reasons = array['crashed'], location_id = 'omma-yard-midland', location_note = null where id = '806' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['bad_engine','no_insurance'], location_id = 'omma-yard-2-midland', location_note = 'Chino' where id = '801' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['bad_engine','no_insurance'], location_id = 'omma-yard-midland', location_note = null where id = '802' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['total_loss','no_insurance'], location_id = 'omma-yard-midland', location_note = null where id = '804' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['total_loss','safety_hold','no_insurance'], location_id = null, location_note = 'Safety la recogió' where id = '805' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['crashed','no_insurance'], location_id = 'omma-yard-midland', location_note = null where id = '806' and inactive_reasons is null;
 update public.trucks set inactive_reasons = array['bad_engine','no_insurance'], location_id = 'gardendale-yard', location_note = null where id = '808' and inactive_reasons is null;
-update public.trucks set inactive_reasons = array['bad_engine'], location_id = 'omma-yard-midland', location_note = null where id = '810' and inactive_reasons is null;
-update public.trucks set inactive_reasons = array['bad_engine'], location_id = 'omma-yard-midland', location_note = null where id = '818' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['bad_engine','no_insurance'], location_id = 'omma-yard-midland', location_note = null where id = '810' and inactive_reasons is null;
+update public.trucks set inactive_reasons = array['bad_engine','no_insurance'], location_id = 'omma-yard-midland', location_note = null where id = '818' and inactive_reasons is null;
 update public.locations set lat = 31.857539, lng = -103.070621, plus_code = '853RVW5H+2Q' where id = 'omma-yard-kermit' and lat is null;

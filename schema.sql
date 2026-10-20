@@ -6,6 +6,7 @@ create table if not exists public.drivers (
   name text not null,
   carrier text default 'RENTROL',
   truck text,
+  trailer text,
   pad text,
   active boolean default true,
   start_date date default '2026-10-17',
@@ -72,16 +73,17 @@ alter publication supabase_realtime add table public.trucks;
 insert into public.trucks (id) values ('801'),('802'),('803'),('807'),('808'),('809'),('810'),('811'),('812'),('813'),('814'),('815'),('816'),('817'),('818') on conflict (id) do nothing;
 
 -- Roster inicial (W43 · 2026)
-insert into public.drivers (id, name, truck, pad) values
-  ('juan-aguilar', 'Juan Aguilar', '803', 'Bayswater'),
-  ('cesar-cedeno', 'Cesar Cedeno', '807', 'Fasken'),
-  ('roberto-jorge', 'Roberto Jorge', '809', 'Sandcan BTA'),
-  ('alain-aragon', 'Alain Aragon', '811', 'Bayswater'),
-  ('roman-trujillo', 'Roman Trujillo', '813', null),
-  ('osaldo-valdez', 'Osaldo Valdez', '814', 'Sandcan BTA'),
-  ('miguel-contreras', 'Miguel Contreras', '815', 'Fasken'),
-  ('david-villereal', 'David Villereal', '816', 'Sandcan BTA'),
-  ('rafael-florat', 'Rafael Florat', '817', 'Fasken')
+insert into public.drivers (id, name, truck, trailer, pad) values
+  ('juan-aguilar', 'Juan Miguel Aguilar', '803', 'BD 1019', 'Bayswater'),
+  ('rafael-florat', 'Sixto Rafael Florat', '817', '742', 'Fasken'),
+  ('miguel-contreras', 'Miguel Contreras', '815', '729', 'Fasken'),
+  ('roberto-jorge', 'Roberto Jorge Jaime', '809', 'OMMA 411', 'Sandcan BTA'),
+  ('cesar-cedeno', 'Cesar Cedeno Rodriguez', '807', '834', 'Fasken'),
+  ('osaldo-valdez', 'Osvaldo Valdes', '814', 'OMMA 741', 'Sandcan BTA'),
+  ('david-villereal', 'David Villereal', '816', 'OMMA 864', 'Sandcan BTA'),
+  ('alain-aragon', 'Alain L Aragon Orellana', '811', 'BD 1020', 'Bayswater'),
+  ('ramon-viel', 'Ramon Viel', '812', 'OMMA 711', 'Sandcan BTA'),
+  ('roman-trujillo', 'Roman Trujillo', '813', 'OMMA 725', 'Sandcan BTA')
 on conflict (id) do nothing;
 
 insert into public.events (id, type, driver_id, truck, start_date, end_date, planned, category, reason, from_pad, to_pad, note, created_by) values

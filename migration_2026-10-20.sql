@@ -1,9 +1,13 @@
--- Roster desde la hoja fuente (nombres completos + Ramon Viel en RTL812)
-insert into public.drivers (id, name, carrier, truck, pad, active, start_date) values ('ramon-viel', 'Ramon Viel', 'RENTROL', '812', 'Sandcan BTA', true, '2026-10-17') on conflict (id) do update set name = excluded.name, truck = excluded.truck, pad = excluded.pad, active = true;
-update public.drivers set name = 'Juan Miguel Aguilar' where id = 'juan-aguilar';
-update public.drivers set name = 'Cesar Cedeno Rodriguez' where id = 'cesar-cedeno';
-update public.drivers set name = 'Roberto Jorge Jaime' where id = 'roberto-jorge';
-update public.drivers set name = 'Alain L Aragon Orellana' where id = 'alain-aragon';
-update public.drivers set name = 'Osvaldo Valdes' where id = 'osaldo-valdez';
-update public.drivers set name = 'Sixto Rafael Florat' where id = 'rafael-florat';
-update public.trucks set workshop_since = null, ready_since = null where id = '812';
+-- v1.9.0 · Ramon Viel + trailers + nombres completos (idempotente, correr una vez en SQL Editor)
+alter table public.drivers add column if not exists trailer text;
+insert into public.drivers (id, name, truck, trailer, pad) values ('ramon-viel', 'Ramon Viel', '812', 'OMMA 711', 'Sandcan BTA') on conflict (id) do nothing;
+insert into public.trucks (id) values ('812') on conflict (id) do nothing;
+update public.drivers set name = 'Juan Miguel Aguilar', trailer = coalesce(trailer, 'BD 1019') where id = 'juan-aguilar';
+update public.drivers set name = 'Sixto Rafael Florat', trailer = coalesce(trailer, '742') where id = 'rafael-florat';
+update public.drivers set trailer = coalesce(trailer, '729') where id = 'miguel-contreras';
+update public.drivers set name = 'Roberto Jorge Jaime', trailer = coalesce(trailer, 'OMMA 411') where id = 'roberto-jorge';
+update public.drivers set name = 'Cesar Cedeno Rodriguez', trailer = coalesce(trailer, '834') where id = 'cesar-cedeno';
+update public.drivers set name = 'Osvaldo Valdes', trailer = coalesce(trailer, 'OMMA 741') where id = 'osaldo-valdez';
+update public.drivers set trailer = coalesce(trailer, 'OMMA 864') where id = 'david-villereal';
+update public.drivers set name = 'Alain L Aragon Orellana', trailer = coalesce(trailer, 'BD 1020') where id = 'alain-aragon';
+update public.drivers set trailer = coalesce(trailer, 'OMMA 725'), pad = coalesce(pad, 'Sandcan BTA') where id = 'roman-trujillo';

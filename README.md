@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v1.9.1
+# Rentrol · Truck Roster · v2.0.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -92,6 +92,15 @@ En **Cuenta** (tocar el avatar) activa *Avisos en este dispositivo*. El portal r
 ## Sin conexión
 
 El portal funciona sin señal: la pantalla se guarda en el teléfono (`sw.js`), los datos quedan en caché y cada cambio que hagas offline se encola y se envía solo al volver la conexión (aviso arriba con los cambios pendientes y botón *Sincronizar ahora*). Tocar el avatar abre la cuenta: estado de conexión, última sincronización, idioma, tema y cerrar sesión.
+
+## Atajos y gestos (v2.0)
+
+- **Buscar** (⌘K / Ctrl+K o la lupa en celular): driver, truck o evento; Enter abre el primero.
+- **Acciones rápidas**: botón ⋯ en la fila (PC) o mantener presionado el nombre (celular): Truck down, Day off, Regresó / cerrar abiertos, Seguimiento.
+- **Deshacer**: tras guardar, cerrar o eliminar, el aviso trae *Deshacer* durante 6 s.
+- **Gestos en celular**: deslizar hacia abajo cierra la hoja del formulario y los paneles; deslizar a los lados cambia el mes del calendario; jalar hacia abajo en la parte superior actualiza; vibración ligera al guardar.
+- **Fechas rápidas**: Ayer / Hoy / Mañana sobre el campo de inicio.
+- Modo noche automático la primera vez (20:00–6:00 o según el sistema); después manda tu elección.
 
 ## Uso diario
 

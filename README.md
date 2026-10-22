@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v2.5.0
+# Rentrol · Truck Roster · v2.6.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -107,6 +107,12 @@ El portal funciona sin señal: la pantalla se guarda en el teléfono (`sw.js`), 
 - **Locaciones**: yardas, talleres, plantas de arena, pozos. Basta nombre + coordenadas; se pueden pegar coordenadas, un link de Google Maps o un Plus Code (también corto, p. ej. `2MXW+RXW Gardendale, TX`). Se usan en los transfers y para ubicar unidades detenidas.
 - **Flota inactiva** (antes taller): cada unidad sin driver lleva uno o varios estados (Bad engine, Chocada, Pérdida total, Sin seguro…) con impacto automático (Crítico/Alto/Medio/Bajo), ubicación y su hilo. Al cambiar de camión, el portal pregunta dónde quedó el que se dejó.
 - Correr `migration_2026-10-20c.sql` una vez en Supabase.
+
+## Actividad ponderada y notificaciones (v2.6)
+
+- **Actividad por evento**: el día de un transfer, cambio de truck o cambio de trailer cuenta 50 %. Truck down y days off con horas se miden sobre 24 h (12 h perdidas = 50 %); el día de regreso con hora cuenta solo hasta esa hora; sin hora, medio día. El % de flota es el promedio real de cada driver, no un conteo.
+- **Notificaciones**: campana con contador (menú en PC, barra superior en celular). Cada evento nuevo o comentario en un hilo de otro usuario aparece como aviso breve; las alertas de tiempo (truck down >12/24 h, day off excedido, unidad inactiva >7 días) salen con su propia animación, vibración y sonido. *Probar* lanza un ejemplo; *Sonido* lo enciende o apaga.
+- **Celular**: deslizar hacia abajo cierra la hoja solo si estás arriba del todo (ya no se cierra al regresar el scroll); encabezado compacto al bajar; tarjetas del roster a una columna.
 
 ## Uso diario
 

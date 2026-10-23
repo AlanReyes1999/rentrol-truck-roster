@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v2.7.0
+# Rentrol · Truck Roster · v2.7.1
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -117,6 +117,10 @@ El portal funciona sin señal: la pantalla se guarda en el teléfono (`sw.js`), 
 ## Push (v2.7)
 
 Alertas con la app cerrada: sigue `push-setup/PASOS.md` (función `rr-push`, secretos y `push_setup.sql` en Supabase). Requiere `sw.js` y `badge-96.png` en el repo. En iPhone solo funciona con la app instalada en la pantalla de inicio (iOS 16.4+).
+
+## Actualizaciones
+
+Cada versión trae `version.json`. Al subirlo junto con `index.html`, quien tenga la app abierta ve la ventana *Nueva versión disponible* y se actualiza con un toque (revisa cada 5 min y al volver a la app).
 
 ## Uso diario
 

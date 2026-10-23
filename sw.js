@@ -1,5 +1,5 @@
 // Rentrol · Truck Roster — service worker: app sin conexión + notificaciones push
-const V = 'rr-shell-v3';
+const V = 'rr-shell-v4';
 const SHELL = ['./', './index.html', './transfer.html', './manifest.webmanifest', './favicon.svg', './favicon-32.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './badge-96.png'];
 const IOS = /iPhone|iPad|iPod/.test(self.navigator.userAgent);
 self.addEventListener('install', e => { e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).catch(() => null).then(() => self.skipWaiting())); });
@@ -7,7 +7,7 @@ self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Pr
 self.addEventListener('fetch', e => {
   const req = e.request; if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (url.hostname.endsWith('supabase.co')) return;
+  if (url.hostname.endsWith('supabase.co') || url.pathname.endsWith('version.json')) return;
   const isCdn = /cdn\.jsdelivr\.net|unpkg\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|tile\.openstreetmap\.org|router\.project-osrm\.org/.test(url.hostname);
   if (url.pathname.endsWith('config.json')) { e.respondWith(fetch(req).then(r => { const cp = r.clone(); caches.open(V).then(c => c.put(req, cp)); return r; }).catch(() => caches.match(req))); return; }
   if (url.origin === location.origin || isCdn) {
@@ -32,3 +32,4 @@ self.addEventListener('notificationclick', e => {
   }));
 });
 self.addEventListener('pushsubscriptionchange', e => { e.waitUntil(self.clients.matchAll({ type: 'window' }).then(cs => cs.forEach(c => c.postMessage({ type: 'rr-resub' })))); });
+self.addEventListener('message', e => { if (e.data && e.data.type === 'skip') self.skipWaiting(); });

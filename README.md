@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v2.7.7
+# Rentrol · Truck Roster · v2.8.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -121,6 +121,10 @@ Alertas con la app cerrada: sigue `push-setup/PASOS.md` (función `rr-push`, sec
 ## Actualizaciones
 
 Cada versión trae `version.json`. Al subirlo junto con `index.html`, quien tenga la app abierta ve la ventana *Nueva versión disponible* y se actualiza con un toque (revisa cada 5 min y al volver a la app).
+
+## Cadena del evento (v2.8)
+
+Al tocar un evento se abre su detalle: **Añadir actualización** cambia lo que se actualizó y queda en la cadena con hora, autor, tiempo desde la anterior, total y alerta; **Modificar** corrige el evento base sin entrar a la cadena y queda en *Evento base modificado*. Requiere `migration_2026-10-23.sql`.
 
 ## Uso diario
 

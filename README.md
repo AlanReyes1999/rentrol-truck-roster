@@ -1,4 +1,4 @@
-# Rentrol · Truck Roster · v2.8.0
+# Rentrol · Truck Roster · v2.15.0
 
 Portal de gestión de drivers y trucks de Rentrol (Meds Logistics): roster general con porcentaje de actividad, perfiles por driver y por truck, calendario de eventos (truck down, days off, cambios de camión, transfers y reportes) y el generador de imagen + WhatsApp para transfers.
 
@@ -125,6 +125,20 @@ Cada versión trae `version.json`. Al subirlo junto con `index.html`, quien teng
 ## Cadena del evento (v2.8)
 
 Al tocar un evento se abre su detalle: **Añadir actualización** cambia lo que se actualizó y queda en la cadena con hora, autor, tiempo desde la anterior, total y alerta; **Modificar** corrige el evento base sin entrar a la cadena y queda en *Evento base modificado*. Requiere `migration_2026-10-23.sql`.
+
+## Odómetro (v2.10)
+
+Registro con foto (tomar o subir; en PC también arrastrar o pegar). La app lee las millas y siempre puedes corregirlas. Fotos en Storage (carpeta `odometer`), historial en el perfil del truck. Correr `migration_2026-10-24-odometro.sql`. Lectura por IA opcional: `push-setup/PASOS-OCR.md`.
+
+## Reporte semanal, bitácora y resumen diario (v2.13)
+
+- **Reporte semanal**: botón *Reporte semanal* en Inicio y Roster. Genera la imagen para gerencia del periodo elegido (actividad, días perdidos, motivos, millas, flota inactiva) y el texto de WhatsApp.
+- **Bitácora**: en Eventos → *Bitácora*. Cada alta, cambio o baja queda con autor, hora y campos cambiados; se puede revertir. Correr `migration_2026-10-24-bitacora.sql` una vez.
+- **Resumen 6:00 AM**: push diario. Volver a desplegar `rr-push` y correr `push-setup/resumen_diario.sql` una vez.
+
+## Personal (v2.15)
+
+Eventos *New hire*, *Transfer de compañía* (MaxCargo) y *Quit* en la sección Personal del formulario. Transfer y quit sacan al driver del roster, lo dejan en Drivers → Fuera del roster (amarillo / café) y mandan su truck a flota inactiva; new hire crea o reactiva al driver con truck, trailer y pozo. Correr `migration_2026-10-27.sql` (tipos nuevos + seguridad por equipo).
 
 ## Uso diario
 

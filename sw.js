@@ -1,6 +1,6 @@
-// Rentrol · Truck Roster — service worker v5: abre siempre la versión más nueva (red primero), funciona sin conexión y recibe push
-const V = 'rr-shell-v5';
-const SHELL = ['./', './index.html', './transfer.html', './manifest.webmanifest', './favicon.svg', './favicon-32.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './badge-96.png'];
+// Rentrol · Truck Roster — service worker v6: abre siempre la versión más nueva (red primero), funciona sin conexión y recibe push
+const V = 'rr-shell-v6';
+const SHELL = ['./', './index.html', './transfer.html', './odo.html', './manifest.webmanifest', './favicon.svg', './favicon-32.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './badge-96.png'];
 const IOS = /iPhone|iPad|iPod/.test(self.navigator.userAgent);
 self.addEventListener('install', e => { e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).catch(() => null).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
@@ -11,7 +11,7 @@ self.addEventListener('fetch', e => {
   const isPage = req.mode === 'navigate' || (url.origin === location.origin && (url.pathname === '/' || url.pathname.endsWith('.html')));
   if (isPage) {
     e.respondWith((async () => {
-      const c = await caches.open(V), key = url.pathname.endsWith('transfer.html') ? './transfer.html' : './index.html';
+      const c = await caches.open(V), key = url.pathname.endsWith('transfer.html') ? './transfer.html' : url.pathname.endsWith('odo.html') ? './odo.html' : './index.html';
       try { const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 6000); const r = await fetch(req.url, { cache: 'no-store', credentials: 'same-origin', signal: ctl.signal }); clearTimeout(tm); if (r && r.ok) c.put(key, r.clone()); return r; }
       catch (x) { return (await c.match(key)) || (await c.match(req, { ignoreSearch: true })) || Response.error(); }
     })());

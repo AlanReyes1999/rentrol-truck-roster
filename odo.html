@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#343843">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Odómetro · Truck Roster</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F4F8;--card:#fff;--card2:#F8F9FC;--chip:#EEF0F5;--line:#E3E6EE;--inline:#D7DBE4;--ink:#343843;--on-ink:#fff;--muted:#6F7583;--label:#767C8C;--faint:#ABB1BD;--ok:#5FC391;--okbg:#E3F5EC;--okfg:#2E7A55;--bad:#E57F77;--badbg:#FBE9E7;--badfg:#A9453C;--ai:#8E7CE0;--aibg:#EEEAFB;--aifg:#5B4BB0;--shadow:0 1px 2px rgba(31,36,48,.05),0 4px 14px rgba(31,36,48,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#15171C;--card:#1E2128;--card2:#23272F;--chip:#2A2E37;--line:#2C313B;--inline:#3A404C;--ink:#E6E8EF;--on-ink:#1A1C22;--muted:#A4AAB7;--label:#9299A8;--faint:#646B78;--okbg:#1F3A2D;--okfg:#8FDDB5;--badbg:#3D2422;--badfg:#F2A9A2;--aibg:#2C2843;--aifg:#C3B8F5;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;touch-action:manipulation;transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.55}
+.wrap{max-width:460px;margin:0 auto;min-height:100dvh;padding:calc(18px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:18px}
+.eb{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.in{animation:in .4s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes bar{0%,100%{transform:scaleY(.35);opacity:.45}50%{transform:scaleY(1);opacity:1}}
+@keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
+@keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes shake{0%,100%{translate:0}25%{translate:-6px}75%{translate:6px}}
+.seg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);padding:4px;border-radius:13px;background:var(--chip)}
+.seg i{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/3);border-radius:10px;background:var(--card);box-shadow:var(--shadow);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.seg button{position:relative;height:42px;border:0;background:transparent;color:var(--muted);font-weight:700;font-size:13.5px}
+.seg button[aria-pressed="true"]{color:var(--ink)}
+.big{width:100%;height:60px;border:0;border-radius:16px;background:var(--ink);color:var(--on-ink);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.ghost{height:44px;padding:0 16px;border:1px solid var(--inline);border-radius:12px;background:var(--card);color:var(--ink);font-weight:700;font-size:13.5px}
+.photo{position:relative;border-radius:16px;overflow:hidden;background:#0b0c10;aspect-ratio:4/3}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.photo .sc{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.photo .sc span{position:absolute;left:0;right:0;height:40%;background:linear-gradient(180deg,transparent,rgba(142,124,224,.35),transparent);animation:scan 1.3s cubic-bezier(.4,0,.2,1) infinite alternate}
+.num{width:100%;height:68px;border:2px solid var(--line);border-radius:16px;background:var(--card2);color:var(--ink);font:800 34px Inter,sans-serif;letter-spacing:.02em;text-align:center;font-variant-numeric:tabular-nums;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
+.num:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(52,56,67,.12)}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:800;letter-spacing:.04em}
+.msg{padding:11px 13px;border-radius:13px;font-size:13px;font-weight:700;line-height:1.4}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div style="display:flex;align-items:flex-end;gap:3px;height:22px"><span style="width:6px;height:22px;border-radius:3px;background:var(--ink)"></span><span style="width:6px;height:14px;border-radius:3px;background:var(--ok)"></span><span style="width:6px;height:18px;border-radius:3px;background:var(--ink)"></span></div>
+    <div style="font-weight:800;font-size:15px;letter-spacing:-.01em">Truck Roster</div>
+    <div class="eb" style="margin-left:auto" id="lang-b"></div>
+  </div>
+
+  <div id="v-load" class="card in" style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 18px">
+    <div style="display:flex;align-items:flex-end;gap:6px;height:40px"><span style="width:11px;height:40px;border-radius:5px;background:var(--ink);transform-origin:bottom;animation:bar 1.1s ease-in-out infinite"></span><span style="width:11px;height:26px;border-radius:5px;background:var(--ok);transform-origin:bottom;animation:bar 1.1s ease-in-out .15s infinite"></span><span style="width:11px;height:33px;border-radius:5px;background:var(--ink);transform-origin:bottom;animation:bar 1.1s ease-in-out .3s infinite"></span></div>
+  </div>
+
+  <div id="v-bad" class="card in" hidden style="text-align:center;padding:32px 20px">
+    <div style="width:56px;height:56px;margin:0 auto;border-radius:16px;background:var(--badbg);color:var(--badfg);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/><path d="M3 3l18 18"/></svg></div>
+    <div style="font-size:19px;font-weight:800;margin-top:14px" data-t="bad_t"></div>
+    <div style="font-size:13.5px;color:var(--muted);font-weight:600;margin-top:6px;line-height:1.5" data-t="bad_s"></div>
+  </div>
+
+  <div id="v-main" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div class="card in">
+      <div class="eb" data-t="eyebrow"></div>
+      <div style="font-size:28px;font-weight:800;letter-spacing:-.03em;margin-top:6px" id="truck"></div>
+      <div style="font-size:13.5px;font-weight:600;color:var(--muted);margin-top:4px" id="sub"></div>
+    </div>
+    <div class="card in" style="animation-delay:.06s;display:flex;flex-direction:column;gap:14px">
+      <div class="seg" id="seg"><i id="segi"></i><button data-k="start" data-t="k_start"></button><button data-k="update" data-t="k_update"></button><button data-k="close" data-t="k_close"></button></div>
+      <input type="file" id="cam" accept="image/*" capture="environment" hidden>
+      <input type="file" id="pick" accept="image/*" hidden>
+      <div id="empty" style="display:flex;flex-direction:column;gap:10px">
+        <button class="big" id="b-cam"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg><span data-t="take"></span></button>
+        <button class="ghost" id="b-pick" data-t="pick"></button>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;text-align:center;line-height:1.5" data-t="tip"></div>
+      </div>
+      <div id="has" hidden style="display:flex;flex-direction:column;gap:12px">
+        <div class="photo"><img id="img" alt=""><div class="sc" id="scan" hidden><span></span></div>
+          <button id="b-re" style="position:absolute;top:10px;right:10px;height:34px;padding:0 12px;border:0;border-radius:10px;background:rgba(20,22,28,.72);color:#fff;font-weight:700;font-size:12.5px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)" data-t="retake"></button></div>
+        <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="eb" data-t="miles"></span><span class="tag" id="aitag" hidden style="background:var(--aibg);color:var(--aifg)">✦ IA</span><span id="reading" hidden style="font-size:12px;font-weight:700;color:var(--aifg)" data-t="reading"></span></div>
+          <input class="num" id="num" inputmode="numeric" autocomplete="off" placeholder="000,000"></div>
+        <div id="err" class="msg" hidden style="background:var(--badbg);color:var(--badfg)"></div>
+        <button class="big" id="b-send"><span data-t="send"></span></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="v-ok" class="card in" hidden style="text-align:center;padding:36px 20px">
+    <div style="width:72px;height:72px;margin:0 auto;border-radius:50%;background:var(--okbg);color:var(--okfg);display:grid;place-items:center;animation:pop .5s cubic-bezier(.2,.8,.2,1) backwards"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-dasharray="24" stroke-dashoffset="24" style="animation:draw .45s cubic-bezier(.2,.8,.2,1) .25s forwards"/></svg></div>
+    <div style="font-size:20px;font-weight:800;margin-top:16px" data-t="ok_t"></div>
+    <div style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums" id="okn"></div>
+    <div style="font-size:13px;color:var(--muted);font-weight:600;margin-top:6px" id="oks"></div>
+    <button class="ghost" id="b-again" style="margin-top:18px" data-t="again"></button>
+  </div>
+</div>
+<script>
+(() => {
+  const T = {
+    es: { eyebrow: 'Odómetro', k_start: 'Inicio', k_update: 'Actualizar', k_close: 'Cierre', take: 'Tomar foto del odómetro', pick: 'Elegir de la galería', tip: 'Enfoca el tablero con las millas totales (ODO). Evita reflejos.', retake: 'Repetir', miles: 'Millas', reading: 'Leyendo con IA…', send: 'Enviar lectura', sending: 'Enviando…', ok_t: 'Lectura enviada', again: 'Mandar otra', bad_t: 'Este link ya no sirve', bad_s: 'Pide a tu supervisor un link nuevo. Los links duran 7 días.', last: 'Última lectura', none: 'Sin lecturas previas', req: 'Escribe las millas del odómetro', low: 'Es menor que la última lectura ({n}). Revisa el número.', net: 'Sin conexión. Revisa la señal e intenta de nuevo.', fail: 'No se pudo enviar. Intenta de nuevo.', ai_no: 'La IA no pudo leerlo; escríbelo tú.', b: 'ES' },
+    en: { eyebrow: 'Odometer', k_start: 'Start', k_update: 'Update', k_close: 'Close', take: 'Take odometer photo', pick: 'Choose from gallery', tip: 'Frame the dash with total miles (ODO). Avoid glare.', retake: 'Retake', miles: 'Miles', reading: 'Reading with AI…', send: 'Send reading', sending: 'Sending…', ok_t: 'Reading sent', again: 'Send another', bad_t: 'This link no longer works', bad_s: 'Ask your supervisor for a new link. Links last 7 days.', last: 'Last reading', none: 'No previous readings', req: 'Enter the odometer miles', low: 'It is lower than the last reading ({n}). Check the number.', net: 'No connection. Check your signal and try again.', fail: 'Could not send. Try again.', ai_no: 'AI could not read it; type it in.', b: 'EN' }
+  };
+  const lang = /^en/i.test(navigator.language || '') ? 'en' : 'es', t = T[lang];
+  const $ = id => document.getElementById(id);
+  document.documentElement.lang = lang; document.querySelectorAll('[data-t]').forEach(el => el.textContent = t[el.dataset.t]); $('lang-b').textContent = t.b;
+  const tok = decodeURIComponent((location.hash || '').slice(1)); history.replaceState(null, '', location.pathname + location.hash);
+  let cfg = null, info = null, img = null, src = 'manual', conf = null, kind = 'update', busy = false;
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const show = v => ['v-load', 'v-bad', 'v-main', 'v-ok'].forEach(k => $(k).hidden = k !== v);
+  const haptic = p => { try { navigator.vibrate && navigator.vibrate(p); } catch (e) { } };
+  async function api(body) { const r = await fetch(cfg.supabaseUrl + '/functions/v1/rr-odo', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey }, body: JSON.stringify(Object.assign({ token: tok }, body)) }); const j = await r.json().catch(() => ({})); if (!r.ok) throw Object.assign(new Error(j.error || 'http ' + r.status), { status: r.status }); return j; }
+  function setKind(k) { kind = k; const i = ['start', 'update', 'close'].indexOf(k); $('segi').style.transform = 'translateX(' + (i * 100) + '%)'; document.querySelectorAll('#seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k)); }
+  document.querySelectorAll('#seg button').forEach(b => b.onclick = () => { setKind(b.dataset.k); haptic(6); });
+  const err = m => { const e = $('err'); e.textContent = m; e.hidden = !m; if (m) { e.style.animation = 'none'; void e.offsetWidth; e.style.animation = 'shake .4s ease'; } };
+  function compress(file) { return new Promise((res, rej) => { const u = URL.createObjectURL(file), im = new Image(); im.onload = () => { const k = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); res(c.toDataURL('image/jpeg', .82)); }; im.onerror = () => { URL.revokeObjectURL(u); rej(new Error('img')); }; im.src = u; }); }
+  async function onFile(f) { if (!f) return; err(''); try { img = await compress(f); } catch (e) { err(t.fail); return; } $('img').src = img; $('empty').hidden = true; $('has').hidden = false; $('num').value = ''; src = 'manual'; conf = null; $('aitag').hidden = true; $('scan').hidden = false; $('reading').hidden = false;
+    try { const r = await api({ action: 'read', image: img.split(',')[1] }); const n = r && r.odometer != null ? +String(r.odometer).replace(/[^\d.]/g, '') : null; if (n && isFinite(n)) { $('num').value = fmt(n); src = 'ai'; conf = r.confidence ?? null; $('aitag').hidden = false; $('aitag').style.animation = 'pop .35s cubic-bezier(.2,.8,.2,1)'; haptic(10); } else err(t.ai_no); } catch (e) { err(t.ai_no); }
+    $('scan').hidden = true; $('reading').hidden = true; }
+  $('cam').onchange = e => { onFile(e.target.files[0]); e.target.value = ''; }; $('pick').onchange = e => { onFile(e.target.files[0]); e.target.value = ''; };
+  $('b-cam').onclick = () => $('cam').click(); $('b-pick').onclick = () => $('pick').click(); $('b-re').onclick = () => $('cam').click();
+  $('num').oninput = e => { const d = e.target.value.replace(/\D/g, '').slice(0, 7); e.target.value = d ? fmt(+d) : ''; src = 'manual'; $('aitag').hidden = true; err(''); };
+  $('b-send').onclick = async () => { if (busy) return; const n = +$('num').value.replace(/\D/g, ''); if (!n) { err(t.req); return; } const lastN = info && info.last && +info.last.odometer; if (lastN && n < lastN && !$('b-send').dataset.ok) { err(t.low.replace('{n}', fmt(lastN))); $('b-send').dataset.ok = '1'; return; } busy = true; $('b-send').disabled = true; $('b-send').firstElementChild.textContent = t.sending;
+    try { const r = await api({ action: 'save', odometer: n, image: img.split(',')[1], category: kind, src, conf }); haptic([12, 40, 12]); $('okn').textContent = fmt(r.odometer) + ' mi'; $('oks').textContent = 'Truck ' + info.truck + ' · ' + r.when.iso + ' · ' + r.when.hm; info.last = { odometer: r.odometer }; show('v-ok'); }
+    catch (e) { err(e.status === 403 ? t.bad_t : (navigator.onLine === false || /fetch|network/i.test(e.message) ? t.net : t.fail)); }
+    busy = false; $('b-send').disabled = false; $('b-send').firstElementChild.textContent = t.send; delete $('b-send').dataset.ok; };
+  $('b-again').onclick = () => { img = null; $('empty').hidden = false; $('has').hidden = true; show('v-main'); };
+  (async () => {
+    if (!tok) { show('v-bad'); return; }
+    try { cfg = await (await fetch('config.json', { cache: 'no-store' })).json(); info = await api({ action: 'info' }); } catch (e) { show('v-bad'); if (e.status !== 403 && !e.status) { $('v-bad').querySelector('[data-t="bad_t"]').textContent = t.net; $('v-bad').querySelector('[data-t="bad_s"]').textContent = ''; } return; }
+    $('truck').textContent = 'Truck ' + info.truck; $('sub').textContent = (info.driver ? info.driver + ' · ' : '') + (info.last ? t.last + ': ' + fmt(info.last.odometer) + ' mi · ' + info.last.start_date : t.none);
+    const d = new Date(), dow = d.getDay(); setKind(!info.last ? 'start' : dow === 5 && d.getHours() >= 12 ? 'close' : dow === 1 ? 'start' : 'update'); show('v-main');
+  })();
+})();
+</script>
+</body>
+</html>

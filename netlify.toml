@@ -37,3 +37,32 @@
     Permissions-Policy = "camera=(self), microphone=(), geolocation=(self), payment=(), usb=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Content-Security-Policy = "frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+    # SEC-03: política completa en modo reporte (no bloquea). Revisa la consola 1 semana; si no hay avisos, cambia el nombre a Content-Security-Policy
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com https://tessdata.projectnaptha.com; worker-src 'self' blob: https://cdn.jsdelivr.net; frame-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
+
+# PERF-27: estáticos que no cambian, caché larga en el navegador
+[[headers]]
+  for = "/invoice-seed/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/odometer-seed/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
